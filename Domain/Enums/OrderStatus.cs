@@ -2,6 +2,7 @@
 
 public enum OrderStatus
 {
-    Unknown = 0,
-    Sent = 1
+    Draft = 0,
+    Pending = 1,
+    Ready = 2
 }

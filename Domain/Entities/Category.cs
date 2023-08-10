@@ -1,5 +1,9 @@
-﻿namespace Microservice.Food.Domain.Entities;
+﻿using ArchitectProg.Kernel.Extensions.Entities;
 
-public class Category
+namespace Microservice.Food.Domain.Entities;
+
+public class Category : Entity<int>
 {
+    public required string Name { get; init; }
+    public required ICollection<Product> Products { get; init; }
 }

@@ -24,7 +24,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Core\Contracts\" />
     <Folder Include="Core\Services\Interfaces\" />
-    <Folder Include="Infrastructure\Persistence\Configuration\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 

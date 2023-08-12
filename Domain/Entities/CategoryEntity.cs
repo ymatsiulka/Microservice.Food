@@ -2,8 +2,8 @@
 
 namespace Microservice.Food.Domain.Entities;
 
-public class Category : Entity<int>
+public class CategoryEntity : Entity<int>
 {
     public required string Name { get; init; }
-    public required ICollection<Product> Products { get; init; }
+    public required ICollection<ProductEntity> Products { get; init; }
 }

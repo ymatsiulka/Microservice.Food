@@ -24,8 +24,8 @@ public sealed class ProductsController : ControllerBase
     public async Task<IActionResult> Create(CreateProductRequest request)
     {
         var result = await productService.Create(request);
-        
-        var response = result.MatchActionResult(Ok);
+
+        var response = result.MatchActionResult(x => CreatedAtAction(nameof(Get), new { productId = x.Id }, x));
         return response;
     }
 
@@ -58,7 +58,7 @@ public sealed class ProductsController : ControllerBase
     public async Task<IActionResult> Get(int productId)
     {
         var result = await productService.Get(productId);
-        
+
         var response = result.MatchActionResult(Ok);
         return response;
     }

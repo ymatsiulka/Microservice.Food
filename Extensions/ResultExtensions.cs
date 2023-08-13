@@ -13,15 +13,15 @@ public static class ResultExtensions
         return response;
     }
 
-    public static IActionResult MatchActionResult<T>(this Result<T> result, Func<T?, IActionResult> actionResult)
+    public static IActionResult MatchActionResult<T>(this Result<T> result, Func<T, IActionResult> actionResult)
     {
-        var response = result.Match(actionResult, x => MatchException(x));
+        var response = result.Match(actionResult, MatchException);
         return response;
     }
 
     public static IActionResult MatchActionResult(this Result result, Func<IActionResult> actionResult)
     {
-        var response = result.Match(actionResult, x => MatchException(x));
+        var response = result.Match(actionResult, MatchException);
         return response;
     }
 
@@ -38,12 +38,6 @@ public static class ResultExtensions
             case UnauthorizedException:
                 var unauthorizedError = new ErrorResult(StatusCodes.Status401Unauthorized, exception.Message);
                 return new UnauthorizedObjectResult(unauthorizedError);
-            //case EmailSendException:
-            //    var serviceUnavailableError = new ErrorResult(StatusCodes.Status503ServiceUnavailable, exception.Message);
-            //    return new ObjectResult(serviceUnavailableError)
-            //    {
-            //        StatusCode = StatusCodes.Status503ServiceUnavailable
-            //    };
             default:
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }

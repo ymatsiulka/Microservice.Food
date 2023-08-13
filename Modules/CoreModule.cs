@@ -14,7 +14,10 @@ public sealed class CoreModule : IModule
     public void RegisterDependencies(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+
         builder.Services.AddScoped<IProductMapper, ProductMapper>();
+        builder.Services.AddScoped<ICategoryMapper, CategoryMapper>();
 
         builder.Services.AddKernelExtensions();
         builder.Services.AddFunctionalExtensions();

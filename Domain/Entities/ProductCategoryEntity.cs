@@ -5,8 +5,8 @@ namespace Microservice.Food.Domain.Entities;
 public class ProductCategoryEntity : Entity<int>
 {
     public int ProductId { get; init; }
-    public required ProductEntity Product { get; init; }
-    
+    public ProductEntity Product { get; set; } = null!;
+
     public int CategoryId { get; init; }
-    public required CategoryEntity Category { get; init; }
+    public CategoryEntity Category { get; set; } = null!;
 }

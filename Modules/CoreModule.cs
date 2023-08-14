@@ -15,13 +15,15 @@ public sealed class CoreModule : IModule
     {
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
         builder.Services.AddScoped<IProductMapper, ProductMapper>();
         builder.Services.AddScoped<ICategoryMapper, CategoryMapper>();
+        builder.Services.AddScoped<IProductCategoryMapper, ProductCategoryMapper>();
 
         builder.Services.AddKernelExtensions();
         builder.Services.AddFunctionalExtensions();
-        
+
         var configuration = builder.Configuration;
         builder.Services.Configure<RetryPolicySettings>(configuration.GetSection(nameof(RetryPolicySettings)));
     }

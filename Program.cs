@@ -1,15 +1,8 @@
 using Microservice.Food.Extensions;
-using Microservice.Food.Modules;
 using Microservice.Food.Modules.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var modules = new IModule[]
-{
-    new ApiModule(),
-    new PersistenceModule(),
-    new CoreModule(),
-};
+var modules = ReflectionExtensions.FindImplementationsOfTypeInExecutingAssembly<IModule>();
 
 foreach (var module in modules)
     module.RegisterDependencies(builder);

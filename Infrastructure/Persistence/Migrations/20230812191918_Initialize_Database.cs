@@ -34,8 +34,8 @@ namespace Microservice.Food.Migrations
                     description = table.Column<string>(type: "text", nullable: false),
                     total = table.Column<decimal>(type: "numeric", nullable: false),
                     status = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    updated_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

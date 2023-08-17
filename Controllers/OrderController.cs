@@ -1,5 +1,16 @@
-﻿namespace Microservice.Food.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class OrderController
+namespace Microservice.Food.Controllers;
+
+[ApiController]
+[Route("api/food/orders")]
+[Tags("Orders")]
+public sealed class OrderController : ControllerBase
 {
+    //private readonly IOrderService orderService;
+
+    //public OrderController(IOrderService orderService)
+    //{
+    //    this.orderService = orderService;
+    //}
 }

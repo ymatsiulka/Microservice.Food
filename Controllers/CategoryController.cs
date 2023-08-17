@@ -9,11 +9,12 @@ namespace Microservice.Food.Controllers;
 
 [ApiController]
 [Route("api/food/categories")]
-public sealed class CategoriesController : ControllerBase
+[Tags("Categories")]
+public sealed class CategoryController : ControllerBase
 {
     private readonly ICategoryService categoryService;
 
-    public CategoriesController(ICategoryService categoryService)
+    public CategoryController(ICategoryService categoryService)
     {
         this.categoryService = categoryService;
     }

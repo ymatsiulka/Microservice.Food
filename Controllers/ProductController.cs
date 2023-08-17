@@ -9,11 +9,12 @@ namespace Microservice.Food.Controllers;
 
 [ApiController]
 [Route("api/food/products")]
-public sealed class ProductsController : ControllerBase
+[Tags("Products")]
+public sealed class ProductController : ControllerBase
 {
     private readonly IProductService productService;
 
-    public ProductsController(IProductService productService)
+    public ProductController(IProductService productService)
     {
         this.productService = productService;
     }

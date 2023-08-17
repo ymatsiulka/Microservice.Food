@@ -3,9 +3,9 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -499.33333333333337,
-    "scrollLeft": -550.0000000000001,
-    "zoomLevel": 0.9,
+    "scrollTop": -497.9999999999999,
+    "scrollLeft": -91.33333333333393,
+    "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -97,7 +97,7 @@
           "active": false,
           "left": 57.7425,
           "top": 902.5365,
-          "zIndex": 2,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 103.16259765625
         },
@@ -228,7 +228,7 @@
           "active": false,
           "left": 1223.3527,
           "top": 743.8128,
-          "zIndex": 30,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 74.24267578125
         },
@@ -313,7 +313,7 @@
           "active": false,
           "left": 651.813,
           "top": 893.8897,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 99.55078125,
           "widthComment": 120
         },
@@ -467,7 +467,7 @@
           "active": false,
           "left": 655.1493,
           "top": 684.4077,
-          "zIndex": 61,
+          "zIndex": 5,
           "widthName": 80.03173828125,
           "widthComment": 120
         },
@@ -644,7 +644,7 @@
           "active": false,
           "left": 56.4083,
           "top": 678.0925,
-          "zIndex": 24,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 80.03173828125
         },
@@ -659,10 +659,10 @@
       {
         "value": "Create new table warehouse with available units on with certain cost.",
         "ui": {
-          "active": true,
+          "active": false,
           "left": 1679.499999999998,
           "top": 753.8333333333306,
-          "zIndex": 64,
+          "zIndex": 6,
           "width": 276.3333333333333,
           "height": 100.66666666666664
         },

@@ -1,7 +1,6 @@
 ﻿using ArchitectProg.Kernel.Extensions.Exceptions;
 using ArchitectProg.Kernel.Extensions.Factories.Interfaces;
 using ArchitectProg.Kernel.Extensions.Interfaces;
-using ArchitectProg.Kernel.Extensions.Specifications.Interfaces;
 using ArchitectProg.Kernel.Extensions.Utils;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Mappers.Interfaces;
@@ -16,11 +15,10 @@ public sealed class ProductCategoryService : IProductCategoryService
     private readonly IRepository<ProductCategoryEntity> productCategoryRepository;
     private readonly IRepository<CategoryEntity> categoryRepository;
     private readonly IRepository<ProductEntity> productRepository;
-
-
     private readonly IProductCategoryMapper productCategoryMapper;
     private readonly IUnitOfWorkFactory unitOfWorkFactory;
     private readonly IResultFactory resultFactory;
+
     public ProductCategoryService(
         IRepository<ProductCategoryEntity> productCategoryRepository,
         IRepository<CategoryEntity> categoryRepository,
@@ -63,12 +61,8 @@ public sealed class ProductCategoryService : IProductCategoryService
 
     public async Task<Result> Delete(int productId, int categoryId)
     {
-        _ = await productRepository.GetOrDefault(productId) ?? throw new ResourceNotFoundException(nameof(productId));
-        _ = await categoryRepository.GetOrDefault(categoryId) ?? throw new ResourceNotFoundException(nameof(categoryId));
-
         var specification = new GetProductCategorySpecification(productId, categoryId);
-        var entity = await productCategoryRepository.GetOrDefault(specification) ?? throw new ValidationException($"Could not find with productId={productId}, categoryId={categoryId} any product category.");
-
+        var entity = await productCategoryRepository.GetOrDefault(specification) ?? throw new ResourceNotFoundException($"Could not find with productId={productId}, categoryId={categoryId} any product category.");
         using (var transaction = unitOfWorkFactory.BeginTransaction())
         {
             await productCategoryRepository.Delete(entity);

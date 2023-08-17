@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
 
-
 [ApiController]
 [Route("api/food/products")]
-public sealed class ProductCategoriesController : ControllerBase
+public sealed class ProductCategoryController : ControllerBase
 {
     private readonly IProductCategoryService productCategoryService;
 
-    public ProductCategoriesController(IProductCategoryService productCategoryService)
+    public ProductCategoryController(IProductCategoryService productCategoryService)
     {
         this.productCategoryService = productCategoryService;
     }

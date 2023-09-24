@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microservice.Food.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
 
@@ -7,10 +8,12 @@ namespace Microservice.Food.Controllers;
 [Tags("Orders")]
 public sealed class OrderController : ControllerBase
 {
-    //private readonly IOrderService orderService;
+    private readonly IOrderService orderService;
 
-    //public OrderController(IOrderService orderService)
-    //{
-    //    this.orderService = orderService;
-    //}
+    public OrderController(IOrderService orderService)
+    {
+        this.orderService = orderService;
+    }
+
+
 }

@@ -4,7 +4,6 @@ using ArchitectProg.Kernel.Extensions.Interfaces;
 using ArchitectProg.Kernel.Extensions.Utils;
 using Microservice.Food.Core.Contracts.Requests;
 using Microservice.Food.Core.Contracts.Responses;
-using Microservice.Food.Core.Mappers;
 using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Core.Services.Interfaces;
 using Microservice.Food.Domain.Entities;

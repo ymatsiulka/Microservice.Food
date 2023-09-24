@@ -1,4 +1,4 @@
-﻿using ArchitectProg.Kernel.Extensions.Mappers.Interfaces;
+﻿using ArchitectProg.Kernel.Extensions.Mappers;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Domain.Entities;
 

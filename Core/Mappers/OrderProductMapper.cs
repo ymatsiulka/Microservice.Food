@@ -1,11 +1,10 @@
-﻿using ArchitectProg.Kernel.Extensions.Mappers;
-using Microservice.Food.Core.Contracts.Responses;
+﻿using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Domain.Entities;
 
 namespace Microservice.Food.Core.Mappers;
 
-public sealed class OrderProductMapper : Mapper<OrderProductEntity, OrderProductResponse>, IOrderProductMapper
+public sealed class OrderProductMapper : IOrderProductMapper
 {
     private readonly IOrderMapper orderMapper;
     private readonly IProductMapper productMapper;
@@ -18,7 +17,7 @@ public sealed class OrderProductMapper : Mapper<OrderProductEntity, OrderProduct
         this.productMapper = productMapper;
     }
 
-    public override OrderProductResponse Map(OrderProductEntity source)
+    public OrderProductResponse Map(OrderProductEntity source)
     {
         var result = new OrderProductResponse
         {

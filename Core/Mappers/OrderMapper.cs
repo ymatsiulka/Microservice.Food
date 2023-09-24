@@ -1,12 +1,11 @@
 ﻿using ArchitectProg.FunctionalExtensions.Factories.Interfaces;
-using ArchitectProg.Kernel.Extensions.Mappers;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Domain.Entities;
 
 namespace Microservice.Food.Core.Mappers;
 
-public sealed class OrderMapper : Mapper<OrderEntity, OrderResponse>, IOrderMapper
+public sealed class OrderMapper : IOrderMapper
 {
     private readonly IEnumItemFactory enumItemFactory;
 
@@ -15,7 +14,7 @@ public sealed class OrderMapper : Mapper<OrderEntity, OrderResponse>, IOrderMapp
         this.enumItemFactory = enumItemFactory;
     }
 
-    public override OrderResponse Map(OrderEntity source)
+    public OrderResponse Map(OrderEntity source)
     {
         var result = new OrderResponse
         {

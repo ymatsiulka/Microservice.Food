@@ -1,5 +1,4 @@
-﻿using ArchitectProg.FunctionalExtensions.Extensions;
-using ArchitectProg.Kernel.Extensions.Exceptions;
+﻿using ArchitectProg.Kernel.Extensions.Exceptions;
 using ArchitectProg.Kernel.Extensions.Interfaces;
 using Microservice.Food.Core.Contracts.Requests;
 using Microservice.Food.Core.Services.Interfaces;

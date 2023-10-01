@@ -4,6 +4,7 @@ namespace Microservice.Food.Domain.Entities;
 
 public class OrderProductEntity : Entity<long>
 {
+    public required string ProductName { get; init; }
     public decimal Price  { get; init; }
     public decimal Discount  { get; init; }
 

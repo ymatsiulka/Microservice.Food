@@ -44,7 +44,10 @@ public sealed class OrderProductService : IOrderProductService
             Order = order,
             OrderId = orderId,
             Product = product,
-            ProductId = productId
+            ProductId = productId,
+            ProductName = product.Name,
+            Discount = product.Discount,
+            Price = product.Price,
         };
 
         using (var transaction = unitOfWorkFactory.BeginTransaction())

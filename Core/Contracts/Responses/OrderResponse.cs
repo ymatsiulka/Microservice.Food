@@ -1,5 +1,4 @@
 ﻿using ArchitectProg.FunctionalExtensions.Contracts;
-using Microservice.Food.Domain.Enums;
 
 namespace Microservice.Food.Core.Contracts.Responses;
 

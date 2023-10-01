@@ -10,5 +10,5 @@ public class ProductEntity : Entity<int>
     public decimal Discount { get; set; }
     public decimal Price { get; set; }
 
-    public required ICollection<CategoryEntity> Categories { get; init; } 
+    public required ICollection<CategoryEntity> Categories { get; init; }
 }

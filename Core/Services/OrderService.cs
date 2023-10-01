@@ -1,6 +1,10 @@
 ﻿using ArchitectProg.Kernel.Extensions.Exceptions;
+using ArchitectProg.Kernel.Extensions.Factories.Interfaces;
 using ArchitectProg.Kernel.Extensions.Interfaces;
+using ArchitectProg.Kernel.Extensions.Utils;
 using Microservice.Food.Core.Contracts.Requests;
+using Microservice.Food.Core.Contracts.Responses;
+using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Core.Services.Interfaces;
 using Microservice.Food.Domain.Entities;
 using Microservice.Food.Infrastructure.Persistence.Specifications;
@@ -11,14 +15,24 @@ public sealed class OrderService : IOrderService
 {
     private readonly IRepository<ProductEntity> productRepository;
     private readonly IRepository<OrderEntity> orderRepository;
+    private readonly IUnitOfWorkFactory unitOfWorkFactory;
+    private readonly IResultFactory resultFactory;
+    private readonly IOrderMapper orderMapper;
+
     public OrderService(IRepository<ProductEntity> productRepository,
-        IRepository<OrderEntity> orderRepository)
+        IRepository<OrderEntity> orderRepository,
+        IUnitOfWorkFactory unitOfWorkFactory,
+        IResultFactory resultFactory,
+        IOrderMapper orderMapper)
     {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.unitOfWorkFactory = unitOfWorkFactory;
+        this.resultFactory = resultFactory;
+        this.orderMapper = orderMapper;
     }
 
-    public async Task CreateOrder(CreateOrderRequest request)
+    public async Task<Result<OrderResponse>> CreateOrder(CreateOrderRequest request)
     {
         var productsSpecification = new ListProductsSpecification(request.ProductIds);
         var products = await productRepository.List(productsSpecification);
@@ -39,7 +53,20 @@ public sealed class OrderService : IOrderService
             Total = products.Sum(t => t.Price),
         };
 
+        using (var transaction = unitOfWorkFactory.BeginTransaction())
+        {
+            await orderRepository.Add(order);
+            await transaction.Commit();
+        }
 
+        var result = orderMapper.Map(order);
+        return result;
+    }
 
+    public async Task<Result<OrderResponse>> GetOrder(int orderId)
+    {
+        var order = await orderRepository.GetOrDefault(orderId) ?? throw new ResourceNotFoundException(nameof(orderId));
+        var result = orderMapper.Map(order);
+        return result;
     }
 }

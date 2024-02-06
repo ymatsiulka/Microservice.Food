@@ -15,7 +15,7 @@
     <PackageReference Include="ArchitectProg.FunctionalExtensions" Version="2.3.0" />
     <PackageReference Include="ArchitectProg.WebApi.Extensions" Version="2.0.3" />
     <PackageReference Include="ArchitectProg.Persistence.EfCore.PostgreSQL" Version="1.0.6" />
-    <PackageReference Include="Polly" Version="8.2.1" />
+    <PackageReference Include="Polly" Version="8.3.0" />
     <PackageReference Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
   </ItemGroup>
 

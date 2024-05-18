@@ -2,7 +2,6 @@
 using Microservice.Food.Core.Contracts.Requests;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Services.Interfaces;
-using Microservice.Food.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
@@ -19,7 +18,6 @@ public sealed class OrderController : ControllerBase
         this.orderService = orderService;
     }
 
-
     [ProducesNotFound]
     [ProducesBadRequest]
     [ProducesCreated(typeof(OrderResponse))]
@@ -27,8 +25,7 @@ public sealed class OrderController : ControllerBase
     public async Task<IActionResult> Create(CreateOrderRequest request)
     {
         var result = await orderService.CreateOrder(request);
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return CreatedAtAction(nameof(Get), new { orderId = result.Id }, result);
     }
 
     [ProducesNotFound]
@@ -38,7 +35,6 @@ public sealed class OrderController : ControllerBase
     public async Task<IActionResult> Get(int orderId)
     {
         var result = await orderService.GetOrder(orderId);
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return Ok(result);
     }
 }

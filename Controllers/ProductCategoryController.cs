@@ -1,7 +1,6 @@
 ﻿using ArchitectProg.WebApi.Extensions.Attributes;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Services.Interfaces;
-using Microservice.Food.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
@@ -19,14 +18,12 @@ public sealed class ProductCategoryController : ControllerBase
 
     [ProducesNotFound]
     [ProducesBadRequest]
-    [ProducesCreated(typeof(ProductCategoryResponse))]
+    [ProducesOk(typeof(ProductCategoryResponse))]
     [HttpPost("{productId}/categories/{categoryId}")]
     public async Task<IActionResult> Create(int productId, int categoryId)
     {
         var result = await productCategoryService.Create(productId, categoryId);
-
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return Ok(result);
     }
 
     [ProducesBadRequest]
@@ -35,9 +32,7 @@ public sealed class ProductCategoryController : ControllerBase
     [HttpDelete("{productId}/categories/{categoryId}")]
     public async Task<IActionResult> Delete(int productId, int categoryId)
     {
-        var result = await productCategoryService.Delete(productId, categoryId);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await productCategoryService.Delete(productId, categoryId);
+        return NoContent();
     }
 }

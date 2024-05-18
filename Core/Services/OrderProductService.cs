@@ -1,7 +1,5 @@
 ﻿using ArchitectProg.Kernel.Extensions.Exceptions;
-using ArchitectProg.Kernel.Extensions.Factories.Interfaces;
 using ArchitectProg.Kernel.Extensions.Interfaces;
-using ArchitectProg.Kernel.Extensions.Utils;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Core.Services.Interfaces;
@@ -17,24 +15,21 @@ public sealed class OrderProductService : IOrderProductService
     private readonly IRepository<OrderEntity> orderRepository;
     private readonly IOrderProductMapper orderProductMapper;
     private readonly IUnitOfWorkFactory unitOfWorkFactory;
-    private readonly IResultFactory resultFactory;
 
     public OrderProductService(IRepository<OrderProductEntity> orderProductRepository,
         IRepository<ProductEntity> productRepository,
         IRepository<OrderEntity> orderRepository,
         IOrderProductMapper orderProductMapper,
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IResultFactory resultFactory)
+        IUnitOfWorkFactory unitOfWorkFactory)
     {
         this.orderProductRepository = orderProductRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.orderProductMapper = orderProductMapper;
         this.unitOfWorkFactory = unitOfWorkFactory;
-        this.resultFactory = resultFactory;
     }
 
-    public async Task<Result<OrderProductResponse>> Create(int orderId, int productId)
+    public async Task<OrderProductResponse> Create(int orderId, int productId)
     {
         var order = await orderRepository.GetOrDefault(orderId) ?? throw new ResourceNotFoundException(nameof(orderId));
         var product = await productRepository.GetOrDefault(productId) ?? throw new ResourceNotFoundException(nameof(productId));
@@ -60,7 +55,7 @@ public sealed class OrderProductService : IOrderProductService
         return result;
     }
 
-    public async Task<Result> Delete(int orderId, int productId)
+    public async Task Delete(int orderId, int productId)
     {
         var specification = new GetOrderProductSpecification(orderId, productId);
         var entity = await orderProductRepository.GetOrDefault(specification) ?? throw new ResourceNotFoundException($"Could not find with productId={productId}, orderId={orderId} any order product.");
@@ -70,8 +65,5 @@ public sealed class OrderProductService : IOrderProductService
             await orderProductRepository.Delete(entity);
             await transaction.Commit();
         }
-
-        var result = resultFactory.Success();
-        return result;
     }
 }

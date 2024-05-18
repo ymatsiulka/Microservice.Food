@@ -2,7 +2,6 @@
 using Microservice.Food.Core.Contracts.Requests;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Services.Interfaces;
-using Microservice.Food.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
@@ -26,8 +25,7 @@ public sealed class ProductController : ControllerBase
     {
         var result = await productService.Create(request);
 
-        var response = result.MatchActionResult(x => CreatedAtAction(nameof(Get), new { productId = x.Id }, x));
-        return response;
+        return CreatedAtAction(nameof(Get), new { productId = result.Id }, result);
     }
 
     [ProducesBadRequest]
@@ -35,10 +33,8 @@ public sealed class ProductController : ControllerBase
     [HttpPut("{productId}")]
     public async Task<IActionResult> Update(int productId, UpdateProductRequest request)
     {
-        var result = await productService.Update(productId, request);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await productService.Update(productId, request);
+        return NoContent();
     }
 
     [ProducesBadRequest]
@@ -47,10 +43,8 @@ public sealed class ProductController : ControllerBase
     [HttpDelete("{productId}")]
     public async Task<IActionResult> Delete(int productId)
     {
-        var result = await productService.Delete(productId);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await productService.Delete(productId);
+        return NoContent();
     }
 
     [ProducesNotFound]
@@ -59,8 +53,6 @@ public sealed class ProductController : ControllerBase
     public async Task<IActionResult> Get(int productId)
     {
         var result = await productService.Get(productId);
-
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return Ok(result);
     }
 }

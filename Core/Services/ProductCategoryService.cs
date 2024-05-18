@@ -1,7 +1,5 @@
 ﻿using ArchitectProg.Kernel.Extensions.Exceptions;
-using ArchitectProg.Kernel.Extensions.Factories.Interfaces;
 using ArchitectProg.Kernel.Extensions.Interfaces;
-using ArchitectProg.Kernel.Extensions.Utils;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Mappers.Interfaces;
 using Microservice.Food.Core.Services.Interfaces;
@@ -17,15 +15,13 @@ public sealed class ProductCategoryService : IProductCategoryService
     private readonly IRepository<ProductEntity> productRepository;
     private readonly IProductCategoryMapper productCategoryMapper;
     private readonly IUnitOfWorkFactory unitOfWorkFactory;
-    private readonly IResultFactory resultFactory;
 
     public ProductCategoryService(
         IRepository<ProductCategoryEntity> productCategoryRepository,
         IRepository<CategoryEntity> categoryRepository,
         IRepository<ProductEntity> productRepository,
         IProductCategoryMapper productCategoryMapper,
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IResultFactory resultFactory
+        IUnitOfWorkFactory unitOfWorkFactory
         )
     {
         this.productCategoryRepository = productCategoryRepository;
@@ -33,10 +29,9 @@ public sealed class ProductCategoryService : IProductCategoryService
         this.categoryRepository = categoryRepository;
         this.productCategoryMapper = productCategoryMapper;
         this.unitOfWorkFactory = unitOfWorkFactory;
-        this.resultFactory = resultFactory;
     }
 
-    public async Task<Result<ProductCategoryResponse>> Create(int productId, int categoryId)
+    public async Task<ProductCategoryResponse> Create(int productId, int categoryId)
     {
         var product = await productRepository.GetOrDefault(productId) ?? throw new ResourceNotFoundException(nameof(productId));
         var category = await categoryRepository.GetOrDefault(categoryId) ?? throw new ResourceNotFoundException(nameof(categoryId));
@@ -59,7 +54,7 @@ public sealed class ProductCategoryService : IProductCategoryService
         return result;
     }
 
-    public async Task<Result> Delete(int productId, int categoryId)
+    public async Task Delete(int productId, int categoryId)
     {
         var specification = new GetProductCategorySpecification(productId, categoryId);
         var entity = await productCategoryRepository.GetOrDefault(specification) ?? throw new ResourceNotFoundException($"Could not find with productId={productId}, categoryId={categoryId} any product category.");
@@ -68,8 +63,5 @@ public sealed class ProductCategoryService : IProductCategoryService
             await productCategoryRepository.Delete(entity);
             await transaction.Commit();
         }
-
-        var result = resultFactory.Success();
-        return result;
     }
 }

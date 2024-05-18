@@ -2,7 +2,6 @@
 using Microservice.Food.Core.Contracts.Requests;
 using Microservice.Food.Core.Contracts.Responses;
 using Microservice.Food.Core.Services.Interfaces;
-using Microservice.Food.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Food.Controllers;
@@ -25,9 +24,7 @@ public sealed class CategoryController : ControllerBase
     public async Task<IActionResult> Create(CreateCategoryRequest request)
     {
         var result = await categoryService.Create(request);
-
-        var response = result.MatchActionResult(x => CreatedAtAction(nameof(Get), new { categoryId = x.Id }, x));
-        return response;
+        return CreatedAtAction(nameof(Get), new { categoryId = result.Id }, result);
     }
 
     [ProducesBadRequest]
@@ -35,10 +32,8 @@ public sealed class CategoryController : ControllerBase
     [HttpPut("{categoryId}")]
     public async Task<IActionResult> Update(int categoryId, UpdateCategoryRequest request)
     {
-        var result = await categoryService.Update(categoryId, request);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await categoryService.Update(categoryId, request);
+        return NoContent();
     }
 
     [ProducesBadRequest]
@@ -47,10 +42,8 @@ public sealed class CategoryController : ControllerBase
     [HttpDelete("{categoryId}")]
     public async Task<IActionResult> Delete(int categoryId)
     {
-        var result = await categoryService.Delete(categoryId);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await categoryService.Delete(categoryId);
+        return NoContent();
     }
 
     [ProducesNotFound]
@@ -59,8 +52,6 @@ public sealed class CategoryController : ControllerBase
     public async Task<IActionResult> Get(int categoryId)
     {
         var result = await categoryService.Get(categoryId);
-
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return Ok(result);
     }
 }

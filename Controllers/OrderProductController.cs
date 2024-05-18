@@ -19,14 +19,12 @@ public sealed class OrderProductController : ControllerBase
 
     [ProducesNotFound]
     [ProducesBadRequest]
-    [ProducesCreated(typeof(OrderProductResponse))]
+    [ProducesOk(typeof(OrderProductResponse))]
     [HttpPost("{orderId}/products/{productId}")]
     public async Task<IActionResult> Create(int orderId, int productId)
     {
         var result = await orderProductService.Create(orderId, productId);
-
-        var response = result.MatchActionResult(Ok);
-        return response;
+        return Ok(result);
     }
 
     [ProducesBadRequest]
@@ -35,9 +33,7 @@ public sealed class OrderProductController : ControllerBase
     [HttpDelete("{orderId}/products/{productId}")]
     public async Task<IActionResult> Delete(int orderId, int productId)
     {
-        var result = await orderProductService.Delete(orderId, productId);
-
-        var response = result.MatchActionResult(NoContent);
-        return response;
+        await orderProductService.Delete(orderId, productId);
+        return NoContent();
     }
 }

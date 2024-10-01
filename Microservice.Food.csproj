@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.7" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.1" />
     <PackageReference Include="ArchitectProg.FunctionalExtensions" Version="2.3.2" />
     <PackageReference Include="ArchitectProg.WebApi.Extensions" Version="2.0.5" />
     <PackageReference Include="ArchitectProg.Persistence.EfCore.PostgreSQL" Version="2.0.7" />
